@@ -130,9 +130,7 @@ class SeeMore extends React.Component {
 
   // Handles special rendering for hashtags in text
   renderCaptionText(text) {
-    console.log('text', text)
     return text.split(' ').map((word, key) => {
-      console.log('word', word)
       const isHashtag = /^#[a-zA-Z]{3,}$/.test(word);
       return (
         <Text key={key} style={isHashtag ? { color: 'rgb(126, 123, 255)' } : {}}>
