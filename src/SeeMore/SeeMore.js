@@ -128,6 +128,20 @@ class SeeMore extends React.Component {
     );
   }
 
+  // Handles special rendering for hashtags in text
+  renderCaptionText(text) {
+    console.log('text', text)
+    return text.split(' ').map((word, key) => {
+      console.log('word', word)
+      const isHashtag = /^#[a-zA-Z]{3,}$/.test(word);
+      return (
+        <Text key={key} style={isHashtag ? { color: 'rgb(126, 123, 255)' } : {}}>
+          {`${word} `}
+        </Text>
+      )
+    });
+  }
+
   render() {
     const { isShowingMore, truncationIndex } = this.state;
     const { children: text, numberOfLines } = this.props;
@@ -139,7 +153,7 @@ class SeeMore extends React.Component {
         numberOfLines={isShowingMore ? undefined : numberOfLines}
         {...this.panResponder.panHandlers}
       >
-        <Text {...this.props}>{isShowingMore ? text : text.slice(0, truncationIndex)}</Text>
+        <Text {...this.props}>{isShowingMore ? this.renderCaptionText(text) : this.renderCaptionText(text.slice(0, truncationIndex))}</Text>
         {this.renderSeeMoreSeeLessLink()}
       </Text>
     );
